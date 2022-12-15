@@ -1,3 +1,5 @@
+import javax.swing.JFrame;
+
 class main 
 {
 	public static void testFrame()

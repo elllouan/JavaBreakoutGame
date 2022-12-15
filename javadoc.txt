@@ -1,0 +1,3 @@
+JLabel : GUI display for a text, image or both
+
+ImageIcon : 
