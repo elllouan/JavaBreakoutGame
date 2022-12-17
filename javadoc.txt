@@ -1,10 +1,17 @@
-JLabel : GUI display for a text, image or both
+GUI stands for Graphical User Interface
 
-ImageIcon : 
+Course 1:
+JFrame
+JLabel : GUI display for a text, image or both (ImageIcon, Font,
 
+Course 2:
+JPanel : GUI thats contains other JComponents
+JButton 
+
+Course 3:
 3 types of Layout :
 - BorderLayout : NORTH, SOUTH ...
 - FlowLayout : rows (when the top is full, creates a new row)
 - GridLayout : rows and columns (dial type)
 
-JLayeredPane : 3D-JPanel
+JLayeredPane : 3D-JPanel (Default(0), Palette(1), Modal(2), PopoUp(3), Drag(4))
