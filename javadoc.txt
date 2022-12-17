@@ -1,3 +1,10 @@
 JLabel : GUI display for a text, image or both
 
 ImageIcon : 
+
+3 types of Layout :
+- BorderLayout : NORTH, SOUTH ...
+- FlowLayout : rows (when the top is full, creates a new row)
+- GridLayout : rows and columns (dial type)
+
+JLayeredPane : 3D-JPanel

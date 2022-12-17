@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*; // JComponents
 import javax.swing.border.Border;
 
@@ -5,6 +6,8 @@ import java.awt.*;
 import javax.swing.event.*;
 
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class MyFrame extends JFrame implements ActionListener, KeyListener
 {
@@ -23,9 +26,9 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Breakout Game !");
 		this.setLayout(null);
-		this.setVisible(true);
 		this.setSize(1200,800);
 		this.setLocation(200,0);
+		this.setVisible(true); // always at the end !!
 	}
 	
 	/* --------------- PUBLIC SECTION ---------------- */
@@ -78,9 +81,9 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener
 		label.setFont(new Font("Brut",Font.ITALIC,22));
 		label.setForeground(Color.WHITE); //
 		label.setBackground(new Color(0x553020));
-		label.setOpaque(true); // need to be set opaque for changing the bg
+		label.setOpaque(true); // need to be set opaque for changing the bg and also to be seen
 
-		ImageIcon enib = new ImageIcon("Images/enib.png");
+		enib = new ImageIcon("Images/enib.png");
 		label.setIcon(enib); // only png
 		label.setIconTextGap(40);
 		label.setVerticalAlignment(JLabel.CENTER); // of the whole label (images+text)
@@ -121,12 +124,23 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener
 
 	public void addButton()
 	{
-		startButton = new Button("New Window");
+		startButton = new JButton("BOOM");
 		startButton.setBounds(150,150,75,75);
-		startButton.setBackground(Color.MAGENTA);
+		// startButton.setBackground(Color.MAGENTA);
 		startButton.setFocusable(false);
 		startButton.addActionListener(this);
 		startButton.addKeyListener(this);
+
+		// reshape the size of an Image with BufferedImage  /!\ does not work
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File("Images/boom.png"));
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		boom = new ImageIcon(img);
+		startButton.setIcon(boom);
 
 		panel2.add(startButton);
 		
@@ -135,12 +149,48 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		System.out.println("Let's Start !");
-		JFrame tmpFrame = new JFrame();
-		tmpFrame.setLayout(null);
-		tmpFrame.setBounds(100,100,500,500);
-		tmpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		tmpFrame.setVisible(true);
+		if(e.getSource()==startButton)
+		{
+		startButton.setEnabled(false);
+		startButton.setLocation(100,50);
+		System.out.println("BOOOOOM !");
+		createGameFrame();
+		}
+	}
+
+	private void createGameFrame() {
+		JFrame newFrame = new JFrame();
+		newFrame.setBounds(300,200,1000,500);
+		newFrame.setLayout(new BorderLayout(10,10)); // fragment the frame into SOUTH, NORTH, EAST, WEST, CENTER(default)
+		newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		newFrame.setVisible(true);
+
+		JLabel boomText = new JLabel("BOOOOOM !");
+		boomText.setFont(new Font("Georgia", Font.BOLD, 25));
+		boomText.setLocation(400,250);
+
+		JPanel panelWest = new JPanel();
+		panelWest.setBackground(Color.red);
+		panelWest.setPreferredSize(new Dimension(50,50));
+
+		JPanel panelNorth = new JPanel();
+		panelNorth.setBackground(Color.green);
+		panelNorth.setPreferredSize(new Dimension(50,50));
+
+		JPanel panelCenter = new JPanel();
+		panelCenter.setBackground(Color.blue);
+		panelCenter.setPreferredSize(new Dimension(200,200));
+		panelCenter.setLayout(new BorderLayout(10,10));
+
+		newFrame.add(panelNorth,BorderLayout.NORTH);
+		newFrame.add(panelWest,BorderLayout.WEST);
+		newFrame.add(panelCenter,BorderLayout.CENTER);
+
+		JPanel subNorthPanelCenter = new JPanel();
+		subNorthPanelCenter.setBackground(Color.gray);
+		subNorthPanelCenter.setPreferredSize(new Dimension(50,50));
+
+		panelCenter.add(subNorthPanelCenter,BorderLayout.NORTH);
 	}
 
 	@Override
@@ -168,5 +218,6 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener
 	private JLabel label;
 	private JPanel panel1, panel2, panel3;
 	private JMenuItem RectMenu, CirMenu;
-	private Button startButton;
+	private JButton startButton;
+	private ImageIcon enib, boom;
 }
