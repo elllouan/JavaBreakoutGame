@@ -1,6 +1,3 @@
-import GeometricShapes.Rectangle;
-import GeometricShapes.Circle;
-
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +15,4 @@ public class MyPanel extends JPanel
         g.setColor(Color.RED);
         g.drawRect(50,100,50,75);
     }
-
-    private Circle circle;
-    private Rectangle rectangle;
 }

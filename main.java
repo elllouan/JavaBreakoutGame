@@ -1,15 +1,27 @@
 import javax.swing.JFrame;
+import java.awt.event.*;
 
-class main 
+class main implements KeyListener, ActionListener
 {
-	public static void testFrame()
-	{
-		WelcomePage welcomePage = new WelcomePage();
+	public static void setUp() {
+		WelcomePage.create();
+	}
+
+	public static void run(double dt) {
+		
+	}
+
+	public static void exit() {
+		
 	}
 
 	public static void main(String[] args) throws Exception
 	{
-		testFrame();
+		setUp();
+		// while(false) {
+		// 	run();
+		// }
+		exit();
 	}
 	/*
 	 public void addMenu()
@@ -52,4 +64,27 @@ class main
 		this.setJMenuBar(menuBar);
 	}
 	 */
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyChar()=='e')	System.out.println("'e' was pressed.");
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

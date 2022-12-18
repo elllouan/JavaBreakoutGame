@@ -15,3 +15,7 @@ Course 3:
 - GridLayout : rows and columns (dial type)
 
 JLayeredPane : 3D-JPanel (Default(0), Palette(1), Modal(2), PopoUp(3), Drag(4))
+
+Course 4:
+JOptionPane : pop up a standard dialog box to inform them of sth
+CheckBox : pop up a standard dialog bow where we can tick a box

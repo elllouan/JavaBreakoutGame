@@ -4,27 +4,27 @@ import javax.swing.border.Border;
 
 import java.awt.*;
 import javax.swing.event.*;
-import javax.swing.plaf.DimensionUIResource;
 
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.logging.Level;
 
 public class WelcomePage extends JFrame implements ActionListener, KeyListener
 {
+	private JMenuBar menuBar;
+	private JLabel title, menu;
+	private JLayeredPane layer;
+	private JPanel westPanel, eastPanel, backPanel;
+	private JButton[] buttons;
+	private SettingsSection settings;
+	private LevelWindow first;
+	private Player player;
 	/* --------------- CONSTRUCTOR SECTION ---------------- */
 	public WelcomePage()
 	{
 		createButons();
-		// setLayer();
-		/*
-		//this.pack(); // adapts automatically to Components (must be integrated beforehand !)
-		// Dimension, ImageIcon, Point, Border, JLabel, Font, Color 
 		
-		addPanel();
-
-		addButton();
-		*/
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setTitle("Breakout Game !");
 		this.setLayout(new BorderLayout());
@@ -36,16 +36,12 @@ public class WelcomePage extends JFrame implements ActionListener, KeyListener
 
 		this.setVisible(true); // always at the end !!
 	}
-	
-	/* --------------- PUBLIC SECTION ---------------- */
 
-	private void setLayer() {
-		layer = new JLayeredPane();
-		//layer.add(back,Integer.valueOf(0));
-		layer.add(menu,Integer.valueOf(2));
-		this.add(layer);
+	public static void create(){
+		WelcomePage welcomePage = new WelcomePage();
 	}
-
+	
+	/* --------------- PRIVATE SECTION ---------------- */
 	private void createButons() {
 		JButton startButton = new JButton("START");
 		JButton settingsButton = new JButton("SETTINGS");
@@ -169,10 +165,12 @@ public class WelcomePage extends JFrame implements ActionListener, KeyListener
 		for (JButton b : buttons) {
 			if(e.getSource()==b && b.getText()=="START"){
 			System.out.println("START THE GAME !");
-			createGameFrame();
+			createFirstLevel();
+			this.dispose();
 			}
 			if(e.getSource()==b && b.getText()=="SETTINGS"){
 				System.out.println("SETTINGS !");
+				this.dispose();
 				createSettingsFrame();
 			}
 		}
@@ -181,39 +179,11 @@ public class WelcomePage extends JFrame implements ActionListener, KeyListener
 	private void createSettingsFrame() {
 	}
 
-	private void createGameFrame() {
-		JFrame newFrame = new JFrame();
-		newFrame.setBounds(300,200,1000,500);
-		newFrame.setLayout(new BorderLayout(10,10)); // fragment the frame into SOUTH, NORTH, EAST, WEST, CENTER(default)
-		newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		newFrame.setVisible(true);
-
-		JLabel boomText = new JLabel("BOOOOOM !");
-		boomText.setFont(new Font("Georgia", Font.BOLD, 25));
-		boomText.setLocation(400,250);
-
-		JPanel panelWest = new JPanel();
-		panelWest.setBackground(Color.red);
-		panelWest.setPreferredSize(new Dimension(50,50));
-
-		JPanel panelNorth = new JPanel();
-		panelNorth.setBackground(Color.green);
-		panelNorth.setPreferredSize(new Dimension(50,50));
-
-		JPanel panelCenter = new JPanel();
-		panelCenter.setBackground(Color.blue);
-		panelCenter.setPreferredSize(new Dimension(200,200));
-		panelCenter.setLayout(new BorderLayout(10,10));
-
-		newFrame.add(panelNorth,BorderLayout.NORTH);
-		newFrame.add(panelWest,BorderLayout.WEST);
-		newFrame.add(panelCenter,BorderLayout.CENTER);
-
-		JPanel subNorthPanelCenter = new JPanel();
-		subNorthPanelCenter.setBackground(Color.gray);
-		subNorthPanelCenter.setPreferredSize(new Dimension(50,50));
-
-		panelCenter.add(subNorthPanelCenter,BorderLayout.NORTH);
+	private void createFirstLevel() {
+		// WelcomePage.dispose();
+		String name =  JOptionPane.showInputDialog("Please type your pseudo in :");
+		Player.create(name); 
+		LevelWindow.createLevel1(name);
 	}
 
 	@Override
@@ -230,16 +200,4 @@ public class WelcomePage extends JFrame implements ActionListener, KeyListener
 		// TODO Auto-generated method stub
 		
 	}
-
-	/* --------------- PRIVATE SECTION ---------------- */
-	private void displayShape()
-	{
-		
-	}
-	
-	private JMenuBar menuBar;
-	private JLabel title, menu;
-	private JLayeredPane layer;
-	private JPanel westPanel, eastPanel, backPanel;
-	private JButton[] buttons;
 }
